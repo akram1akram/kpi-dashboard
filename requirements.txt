@@ -1,0 +1,9 @@
+requests>=2.31.0  # For API calls
+python-dotenv>=1.0.0  # For environment variables
+pandas>=2.0.0
+sqlalchemy>=2.0.0
+numpy>=1.24.0
+pathlib>=1.0.1
+chardet>=5.0.0
+psycopg2-binary>=2.9.0  # PostgreSQL adapter
+deepseek-api>=0.1.0
