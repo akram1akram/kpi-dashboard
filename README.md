@@ -6,19 +6,19 @@ This project is a comprehensive KPI dashboard solution that combines anomaly det
 
 kpi-dashboard/
 ├── chat-bot/
-│ ├── static/
-│ │ └── chat-interface.html
-│ ├── .env # DeepSeek API key
-│ ├── app.py # Flask application for chat bot
-│ └── requirements.txt # Chat bot dependencies
+│   ├── static/
+│   │   └── chat-interface.html
+│   ├── .env # DeepSeek API key
+│   ├── app.py # Flask application for chat bot
+│   └── requirements.txt # Chat bot dependencies
 ├── data/
-│ ├── processed/ # Processed data files
-│ └── raw/
-│ └── sample.csv # Original data
+│   ├── processed/ # Processed data files
+│   └── raw/
+│       └── sample.csv # Original data
 ├── src/
-│ ├── anomaly_detection.py # Isolation Forest implementation
-│ ├── anomaly_explanation.py # AI-powered anomaly analysis
-│ └── data_processing.py # Data preprocessing scripts
+│   ├── anomaly_detection.py # Isolation Forest implementation
+│   ├── anomaly_explanation.py # AI-powered anomaly analysis
+│   └── data_processing.py # Data preprocessing scripts
 ├── .env # Project-wide API keys
 └── requirements.txt # Project dependencies
 
