@@ -26,7 +26,7 @@ def load_data(file_path):
             
     raise ValueError("Failed to read CSV with common encodings")
 
-df = load_data("/Users/akramalabdouni/kpi-dashboard/data/raw/sample.csv")
+df = load_data("kpi-dashboard/data/raw/sample.csv")
 
 # Basic dataframe checks (check if the data is loaded correctly)
 def basic_checks(df):
