@@ -121,9 +121,7 @@ The project uses Isolation Forest algorithm for anomaly detection:
     style="border: 1px solid #ccc; border-radius: 4px;"
 ></iframe>
 ```
-# KPI Dashboard with Anomaly Detection and AI Chat Bot
-
-[Previous sections remain the same...]
+## AI Chat Bot
 
 ## Dashboard Integration Options
 
