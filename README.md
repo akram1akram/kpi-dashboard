@@ -2,6 +2,8 @@
 
 This project is a comprehensive KPI dashboard solution that combines anomaly detection using Isolation Forest algorithm, AI-powered analysis, and an interactive chat bot interface.
 
+Visit https://kpidashboardfortestpurposes.blogspot.com/2025/04/dashboard.html for a basic overview
+
 ## Project Structure
 
 kpi-dashboard/
