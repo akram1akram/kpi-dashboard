@@ -1,0 +1,59 @@
+# Environment variables (IMPORTANT!)
+.env
+chat-bot/.env
+*.env
+
+# Python virtual environment
+venv/
+*/venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# If you store processed data you don't want in Git (optional)
+# data/processed/*
+# !data/processed/.gitkeep # Use .gitkeep if you want to keep the dir structure
