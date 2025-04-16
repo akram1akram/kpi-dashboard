@@ -1,136 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Chat Bot Interface</title> <style>
-        /* --- All CSS rules go here --- */
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Chat Bot Interface</title> 
 
-        /* Apply base styles to the body or main container within the iframe */
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* --- All CSS rules go here --- */
+        /* (Using the dark theme styles from previous steps) */
         body { 
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-          margin: 0; /* Remove default body margin if needed */
-          background-color: #1c1c1e; /* Slightly darker main background */
-          color: #ffffff; /* Default text color */
-          display: flex; /* Ensure chat container takes up space if body is parent */
-          height: 100vh; /* Ensure body takes full viewport height */
+          margin: 0; 
+          background-color: #1c1c1e; 
+          color: #ffffff; 
+          display: flex; 
+          height: 100vh; 
           box-sizing: border-box;
         }
 
         .chat-container {
           width: 100%;
-          /* height: 400px; Remove fixed height, let flex handle it */
-          /* border: 1px solid #ccc; Remove light border, maybe add a subtle dark one if desired */
-          border: 1px solid #3a3a3c; /* Subtle darker border */
+          border: 1px solid #3a3a3c; 
           display: flex;
           flex-direction: column;
-          flex-grow: 1; /* Allow container to grow */
-          overflow: hidden; /* Prevent scrollbars on container itself */
-          background-color: #1c1c1e; /* Match body background */
+          flex-grow: 1; 
+          overflow: hidden; 
+          background-color: #1c1c1e; 
         }
 
         .chat-messages {
           flex: 1;
-          overflow-y: auto; /* Only messages area should scroll */
+          overflow-y: auto; 
           padding: 10px;
-          background-color: #1c1c1e; /* Match container background */
-          color: #ffffff; /* Ensure default text is white */
+          background-color: #1c1c1e; 
+          color: #ffffff; 
         }
 
         .message {
-          margin-bottom: 8px; /* Use margin-bottom for spacing */
+          margin-bottom: 8px; 
           padding: 10px 15px;
-          border-radius: 18px; /* More rounded corners */
-          max-width: 75%;
-          line-height: 1.4;
-          word-wrap: break-word; /* Ensure long words break */
+          border-radius: 18px; 
+          max-width: 90%; /* Allow wider messages for formatted content */
+          line-height: 1.5; /* Increase line height slightly for readability */
+          word-wrap: break-word; 
+          /* Add styles for Markdown elements */
         }
+        .message p { margin: 0.5em 0; } /* Add space between paragraphs */
+        .message ul, .message ol { margin: 0.5em 0 0.5em 20px; padding: 0; } /* Indent lists */
+        .message li { margin-bottom: 0.25em; } /* Space out list items */
+        .message h1, .message h2, .message h3, .message h4, .message h5, .message h6 { margin-top: 0.8em; margin-bottom: 0.4em; line-height: 1.2; } /* Style headings */
+        .message code { background-color: #2b2b2b; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; } /* Style inline code */
+        .message pre { background-color: #2b2b2b; padding: 10px; border-radius: 5px; overflow-x: auto; } /* Style code blocks */
+        .message pre code { background-color: transparent; padding: 0; }
+        .message blockquote { border-left: 3px solid #555; margin: 0.8em 0; padding: 0.2em 0.8em; color: #ccc; } /* Style blockquotes */
+        .message a { color: #58a6ff; text-decoration: none; } /* Style links */
+        .message a:hover { text-decoration: underline; }
+
 
         .user-message {
-          background-color: #007aff; /* Apple blue */
+          background-color: #007aff; 
           color: white;
-          margin-left: auto; /* Align right */
-          margin-right: 5px; /* Small margin from edge */
+          margin-left: auto; 
+          margin-right: 5px; 
         }
 
         .bot-message {
-          background-color: #3a3a3c; /* Dark grey bubble */
+          background-color: #3a3a3c; 
           color: #ffffff;
-          /* border: 1px solid #ddd; Remove light border */
-          margin-right: auto; /* Align left */
-          margin-left: 5px; /* Small margin from edge */
+          margin-right: auto; 
+          margin-left: 5px; 
         }
 
         .chat-input {
           display: flex;
           padding: 10px;
-          background-color: #2c2c2e; /* Slightly lighter background for input area */
-          border-top: 1px solid #3a3a3c; /* Separator line */
+          background-color: #2c2c2e; 
+          border-top: 1px solid #3a3a3c; 
         }
 
         #messageInput {
           flex: 1;
           padding: 10px 15px;
           margin-right: 8px;
-          border: 1px solid #3a3a3c; /* Darker border */
-          border-radius: 18px; /* Match message bubble rounding */
-          background-color: #3a3a3c; /* Dark input background */
-          color: #ffffff; /* White text input */
-          font-size: 1rem; /* Ensure readable font size */
+          border: 1px solid #3a3a3c; 
+          border-radius: 18px; 
+          background-color: #3a3a3c; 
+          color: #ffffff; 
+          font-size: 1rem; 
         }
 
         #messageInput::placeholder {
-          color: #8e8e93; /* Lighter grey placeholder text */
+          color: #8e8e93; 
         }
 
         #sendButton {
           padding: 10px 16px;
-          background: #007aff; /* Apple blue */
+          background: #007aff; 
           color: white;
           border: none;
-          border-radius: 18px; /* Match rounding */
+          border-radius: 18px; 
           cursor: pointer;
           font-weight: bold;
           font-size: 1rem;
-          transition: background-color 0.2s ease; /* Smooth hover effect */
+          transition: background-color 0.2s ease; 
         }
 
         #sendButton:hover {
-          background-color: #005ecb; /* Slightly darker blue on hover */
+          background-color: #005ecb; 
         }
 
-        /* Optional: Add scrollbar styling for webkit browsers (Chrome, Safari) */
-        .chat-messages::-webkit-scrollbar {
-          width: 6px;
-        }
-
-        .chat-messages::-webkit-scrollbar-track {
-          background: #2c2c2e;
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb {
-          background-color: #555;
-          border-radius: 3px;
-        }
-
-        /* Optional: CSS for Typing Indicator (if you enable JS) */
-        /*
-        .typing-indicator span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            margin: 0 1px;
-            background-color: #8e8e93;
-            border-radius: 50%;
-            opacity: 0.4;
-            animation: typing 1s infinite;
-        }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes typing {
-            0%, 100% { opacity: 0.4; transform: scale(0.8); }
-            40% { opacity: 1; transform: scale(1); }
-        }
-        */
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-track { background: #2c2c2e; }
+        .chat-messages::-webkit-scrollbar-thumb { background-color: #555; border-radius: 3px; }
 
     </style>
 </head>
@@ -144,8 +127,6 @@
     </div>
 
     <script>
-        // --- All JavaScript goes here ---
-
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
@@ -154,102 +135,71 @@
             const message = messageInput.value.trim();
             if (!message) return;
 
-            // Add user message
-            addMessage(message, 'user');
+            // Add user message (as plain text)
+            addMessage(message, 'user', false); // Add flag to not parse user messages
             messageInput.value = '';
 
-            // --- Optional: Add Typing Indicator ---
-            // addTypingIndicator(); // Call function to show indicator
-
             try {
-                const response = await fetch('/chat', { // Ensure this path is correct on your server
+                const response = await fetch('/chat', { 
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message })
                 });
-
-                // --- Optional: Remove Typing Indicator ---
-                // removeTypingIndicator(); // Call function to remove indicator
-
                 const data = await response.json();
                 if (data.error) {
-                    addMessage('Error: ' + data.error, 'bot');
+                    addMessage('Error: ' + data.error, 'bot', false); // Don't parse error messages
                 } else {
-                    addMessage(data.response, 'bot');
+                    // Add bot message and parse Markdown
+                    addMessage(data.response, 'bot', true); // Parse this message
                 }
             } catch (error) {
-                // --- Optional: Remove Typing Indicator if error ---
-                // removeTypingIndicator();
-                console.error("Chatbot request failed:", error); // Log error for debugging
-                addMessage('Sorry, I encountered an error communicating with the server.', 'bot');
+                console.error("Chatbot request failed:", error); 
+                addMessage('Sorry, I encountered an error communicating with the server.', 'bot', false); // Don't parse error
             }
         }
 
-        function addMessage(text, sender) {
+        // 2. Modify addMessage function
+        function addMessage(text, sender, parseMarkdown = false) { // Added parseMarkdown flag
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', `${sender}-message`);
-            messageDiv.textContent = text; // Using textContent for security (prevents HTML injection)
+
+            if (parseMarkdown) {
+                // Convert Markdown to HTML using Marked.js and set innerHTML
+                // Note: Marked.js has basic built-in sanitization. For higher security needs,
+                // especially if the AI source could be compromised or manipulated, 
+                // consider adding DOMPurify: https://github.com/cure53/DOMPurify
+                messageDiv.innerHTML = marked.parse(text); 
+            } else {
+                // For user messages or errors, use textContent for safety
+                messageDiv.textContent = text; 
+            }
+
             chatMessages.appendChild(messageDiv);
 
-            // --- Smooth Scrolling ---
+            // Smooth Scrolling
             chatMessages.scrollTo({
                 top: chatMessages.scrollHeight,
                 behavior: 'smooth'
             });
-            // --- End Smooth Scrolling ---
         }
-
-        // --- Optional: Typing Indicator Functions ---
-        // function addTypingIndicator() {
-        //     const indicatorDiv = document.createElement('div');
-        //     indicatorDiv.classList.add('message', 'bot-message', 'typing-indicator');
-        //     indicatorDiv.innerHTML = '<span>.</span><span>.</span><span>.</span>'; // Simple dot animation (needs CSS above)
-        //     indicatorDiv.id = 'typingIndicator'; // Give it an ID to find it easily
-        //     chatMessages.appendChild(indicatorDiv);
-        //     chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
-        // }
-
-        // function removeTypingIndicator() {
-        //     const indicator = document.getElementById('typingIndicator');
-        //     if (indicator) {
-        //         chatMessages.removeChild(indicator);
-        //     }
-        // }
-        // --- End Optional Typing Indicator ---
-
 
         sendButton.addEventListener('click', sendMessage);
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                e.preventDefault(); // Prevent potential form submission if wrapped in a form
+                e.preventDefault(); 
                 sendMessage();
             }
         });
 
-        // Keep your iframe communication functions
+        // Keep iframe communication functions
         function highlightDashboardElement(elementId) {
-            // Communicate with Looker Studio to highlight specific elements
-            window.parent.postMessage({
-                type: 'highlight',
-                elementId: elementId
-            }, '*'); // Consider specifying the target origin instead of '*' for security
+            window.parent.postMessage({ type: 'highlight', elementId: elementId }, '*'); 
         }
-
         function updateDashboardFilters(filters) {
-            // Update dashboard filters based on chat interaction
-            window.parent.postMessage({
-                type: 'updateFilters',
-                filters: filters
-            }, '*'); // Consider specifying the target origin
+            window.parent.postMessage({ type: 'updateFilters', filters: filters }, '*'); 
         }
-
         function getContextualData() {
-            // Get current dashboard context
-            window.parent.postMessage({
-                type: 'getContext'
-            }, '*'); // Consider specifying the target origin
+            window.parent.postMessage({ type: 'getContext' }, '*'); 
         }
 
     </script>
