@@ -2,7 +2,7 @@
 
 This project is a comprehensive KPI dashboard solution that combines anomaly detection using Isolation Forest algorithm, AI-powered analysis, and an interactive chat bot interface.
 
-🔗 **Visit the live dashboard viewer**: [GitHub Pages](https://akram1akram.github.io/kpi-dashboard-website/) *(Replace placeholders with your actual GitHub Pages URL)*
+🔗 **Visit the live dashboard viewer**: [GitHub Pages](https://akram1akram.github.io/kpi-dashboard-website/)
 
 ## 📂 Project Structure
 
